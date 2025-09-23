@@ -3,6 +3,7 @@ package co.com.pragma.usecase.tecnologia;
 import co.com.pragma.model.tecnologia.Tecnologia;
 import co.com.pragma.model.tecnologia.gateways.TecnologiaRepository;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
@@ -19,4 +20,9 @@ public class TecnologiaUseCase {
                         tecnologiaRepository.crearTecnologia(tecnologia)
                 );
     }
+
+    public Flux<Tecnologia> obtenerTecnologias() {
+        return tecnologiaRepository.obtenerTecnologias();
+    }
 }
+

@@ -7,4 +7,5 @@ import reactor.core.publisher.Mono;
 
 public interface MyReactiveRepository extends ReactiveCrudRepository<TecnologiaEntity, Long>, ReactiveQueryByExampleExecutor<TecnologiaEntity> {
     public Mono<TecnologiaEntity> findTecnologiaByNombre(String nombre);
+
 }

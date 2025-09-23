@@ -6,6 +6,7 @@ import co.com.pragma.r2dbc.entity.TecnologiaEntity;
 import co.com.pragma.r2dbc.helper.ReactiveAdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -28,6 +29,12 @@ public class MyReactiveRepositoryAdapter extends ReactiveAdapterOperations<
     @Override
     public Mono<Tecnologia> buscarTecnologiaPorNombre(String nombre) {
         return repository.findTecnologiaByNombre(nombre)
+                .map(this::toEntity);
+    }
+
+    @Override
+    public Flux<Tecnologia> obtenerTecnologias() {
+        return repository.findAll()
                 .map(this::toEntity);
     }
 }

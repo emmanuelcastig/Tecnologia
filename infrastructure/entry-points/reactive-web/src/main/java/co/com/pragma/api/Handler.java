@@ -39,6 +39,20 @@ public class Handler {
                         ServerResponse.status(HttpStatus.CONFLICT).bodyValue(e.getMessage()));
     }
 
+
+    public Mono<ServerResponse> listarTecnologias(ServerRequest serverRequest) {
+        return tecnologiaUseCase.obtenerTecnologias()
+                .map(tecnologiaMapper::toResponse)
+                .collectList()
+                .flatMap(tecnologias -> {
+                    if (tecnologias.isEmpty()) {
+                        return ServerResponse.noContent().build();
+                    }
+                    return ServerResponse.ok().bodyValue(tecnologias);
+                });
+    }
+
+
     public Mono<TecnologiaRequest> validacion(TecnologiaRequest request) {
         Set<ConstraintViolation<TecnologiaRequest>> violaciones = validator.validate(request);
         if (!violaciones.isEmpty()) {
