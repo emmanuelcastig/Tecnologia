@@ -24,5 +24,9 @@ public class TecnologiaUseCase {
     public Flux<Tecnologia> obtenerTecnologias() {
         return tecnologiaRepository.obtenerTecnologias();
     }
+
+    public Mono<Void> eliminarTecnologia(Long id) {
+        return tecnologiaRepository.eliminarTecnologia(id);
+    }
 }
 

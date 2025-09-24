@@ -37,4 +37,9 @@ public class MyReactiveRepositoryAdapter extends ReactiveAdapterOperations<
         return repository.findAll()
                 .map(this::toEntity);
     }
+
+    @Override
+    public Mono<Void> eliminarTecnologia(Long id) {
+        return repository.deleteById(id);
+    }
 }

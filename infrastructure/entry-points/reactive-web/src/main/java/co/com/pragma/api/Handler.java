@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ValidationException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.reactive.TransactionalOperator;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class Handler {
@@ -63,5 +65,16 @@ public class Handler {
             return Mono.error(new ValidationException(errorMessage));
         }
         return Mono.just(request);
+    }
+
+    public Mono<ServerResponse> eliminarTecnologia(ServerRequest serverRequest) {
+        Long id = Long.parseLong(serverRequest.pathVariable("id"));
+        log.info("eliminando tecnologia " + id);
+        return tecnologiaUseCase.eliminarTecnologia(id)
+                .as(transactionalOperator::transactional)
+                .then(ServerResponse.noContent().build())
+                .onErrorResume(IllegalArgumentException.class, e ->
+                        ServerResponse.status(404).bodyValue(e.getMessage())
+                );
     }
 }

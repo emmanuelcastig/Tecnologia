@@ -8,4 +8,5 @@ public interface TecnologiaRepository {
     Mono<Void> crearTecnologia(Tecnologia tecnologia);
     Mono<Tecnologia> buscarTecnologiaPorNombre(String nombre);
     Flux<Tecnologia> obtenerTecnologias();
+    Mono<Void> eliminarTecnologia(Long id);
 }
