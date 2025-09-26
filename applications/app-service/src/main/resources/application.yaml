@@ -6,7 +6,7 @@ spring:
   devtools:
     add-properties: false
   r2dbc:
-    host: "localhost"
+    host: "db_tecnologia"
     port: 5432
     database: "tecnologiadb"
     schema: "public"
@@ -14,7 +14,7 @@ spring:
     password: 1234
   sql:
     init:
-      mode: always
+      mode: never
 management:
   endpoints:
     web:
